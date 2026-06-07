@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import "tailwindcss";
+
+/* ── Raaag Design Tokens ─────────────────────────────────────────────────── */
+@theme {
+  --color-primary:   #003d5c;
+  --color-accent:    #FF6F00;
+  --color-maroon:    #6B1D1D;
+  --color-gold:      #D4AF37;
+  --color-cream:     #F5E6D3;
+  --color-cream-2:   #E8D5C4;
+  --color-muted:     #8B6F47;
+  --color-card:      #0f2535;
+  --color-card2:     #132d42;
+
+  --font-sans:    'Poppins', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+
+  --animate-ripple:      ripple 0.6s ease-out;
+  --animate-fade-in:     fadeIn 0.3s ease-out;
+  --animate-slide-up:    slideUp 0.35s ease-out;
+  --animate-pulse-gold:  pulseGold 2s ease-in-out infinite;
+}
+
+/* ── Keyframes ────────────────────────────────────────────────────────────── */
+@keyframes ripple    { 0% { transform: scale(0); opacity: 0.6; } 100% { transform: scale(4); opacity: 0; } }
+@keyframes fadeIn    { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp   { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes pulseGold { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+:root {
+  --bg:          #0a1a26;
+  --card:        #0f2535;
+  --border:      rgba(212,175,55,0.25);
+  --border-full: #D4AF37;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 2px; }
+
+/* ── Ornamental line ──────────────────────────────────────────────────────── */
+.ornament-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+}
+
+/* ── Card style ───────────────────────────────────────────────────────────── */
+.raaag-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.raaag-card:hover {
+  border-color: #D4AF37;
+  transform: translateY(-2px);
+}
+
+/* ── Range input ─────────────────────────────────────────────────────────── */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: #1a3a50;
+  outline: none;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FF6F00;
+  cursor: pointer;
+  box-shadow: 0 0 6px #FF6F00;
+}
+
+/* ── Ripple button ───────────────────────────────────────────────────────── */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,111,0,0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn-ripple:active::after { opacity: 1; }
+
+/* ── Mini player ─────────────────────────────────────────────────────────── */
+.mini-player {
+  background: linear-gradient(135deg, #0d2236 0%, #0a1a26 100%);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+}
+
+/* ── Now Playing bg ──────────────────────────────────────────────────────── */
+.now-playing-bg {
+  background: linear-gradient(180deg, #001a2e 0%, #0a1a26 60%, #001a2e 100%);
+}
+
+/* ── Raag time card ──────────────────────────────────────────────────────── */
+.raag-time-card {
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.raag-time-card:hover { transform: scale(1.02); }
+.raag-time-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, transparent 60%);
+}
+
+/* ── Bottom sheet ────────────────────────────────────────────────────────── */
+.bottom-sheet {
+  border-radius: 20px 20px 0 0;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+}
+
+/* ── EQ bars ─────────────────────────────────────────────────────────────── */
+@keyframes eq-bar { 0%,100% { height: 4px; } 50% { height: 14px; } }
+.eq-bars span {
+  display: inline-block;
+  width: 3px;
+  background: #FF6F00;
+  border-radius: 2px;
+  animation: eq-bar 0.8s ease-in-out infinite;
+}
+.eq-bars span:nth-child(2) { animation-delay: 0.2s; }
+.eq-bars span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── Glow text ───────────────────────────────────────────────────────────── */
+.accent-glow {
+  color: #FF6F00;
+  text-shadow: 0 0 12px rgba(255,111,0,0.4);
+}
