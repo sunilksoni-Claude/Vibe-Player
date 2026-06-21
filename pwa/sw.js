@@ -1,5 +1,5 @@
-const CACHE = 'raaag-v1';
-const SHELL = ['./index.html', './manifest.json'];
+const CACHE = 'vibe-v3';
+const SHELL = ['./index.html', './manifest.json', './icons/icon-190.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).catch(() => {}));
@@ -40,7 +40,7 @@ self.addEventListener('fetch', e => {
   }
 
   // App shell: cache-first, fallback to network
-  if (url.pathname.endsWith('.html') || url.pathname.endsWith('.json') || url.pathname === '/') {
+  if (url.pathname.endsWith('.html') || url.pathname.endsWith('.json') || url.pathname.endsWith('.png') || url.pathname === '/') {
     e.respondWith(
       caches.match(e.request).then(cached =>
         cached || fetch(e.request).then(resp => {
